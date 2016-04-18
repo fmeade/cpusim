@@ -71,6 +71,11 @@ int main(int argc, char** argv) {
 
 
 
+
+
+
+    /* Printing Output */
+
     printf("\n%s\n", "--Input Parameters--");
     printf("%s%d\n", "Seed: ", SEED);
     printf("%s%d\n", "# of Jobs: ", NUMJOBS);
