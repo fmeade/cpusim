@@ -1,7 +1,25 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "queue.h"
+#include "jobQueue.h"
+
+Job* createJob(int jnumber, int arrivalTime, int burstTime) {
+    
+    /* Create a Job */
+    Job *job;
+    job = (Job *)malloc(sizeof(Job));
+
+    /* Intialize its properties */
+    job->jnumber = jnumber;
+    job->arrivalTime = arrivalTime;
+    job->burstTime = burstTime;
+    job->timeInQueue = 0;
+    job->queueChange = 0;
+    job->turnaround = 0;
+    job->finishTime = 0;
+
+    return job;  
+}
 
 Queue* createQueue(int maxJobs) {
     
@@ -9,7 +27,7 @@ Queue* createQueue(int maxJobs) {
     Queue *Q;
     Q = (Queue *)malloc(sizeof(Queue));
 
-    /* Initialise its properties */
+    /* Initialize its properties */
     Q->jobs = (Job *)malloc(sizeof(int)*maxJobs);
     Q->size = 0;
     Q->capacity = maxJobs;
@@ -23,9 +41,9 @@ Queue* createQueue(int maxJobs) {
 void Dequeue(Queue *Q)
 {
     /* If Queue size is zero then it is empty. So we cannot pop */
-    if(Q->size==0)
+    if(Q->size == 0)
     {
-        printf("Queue is Empty\n");
+        perror("Queue is Empty\n");
         return;
     }
     /* Removing an element is equivalent to incrementing index of front by one */
@@ -34,9 +52,9 @@ void Dequeue(Queue *Q)
         Q->size--;
         Q->front++;
                 /* As we fill elements in circular fashion */
-        if(Q->front==Q->capacity)
+        if(Q->front == Q->capacity)
         {
-            Q->front=0;
+            Q->front = 0;
         }
     }
 
@@ -45,10 +63,9 @@ void Dequeue(Queue *Q)
 
 Job front(Queue *Q)
 {
-    if(Q->size==0)
+    if(Q->size == 0)
     {
-        printf("Queue is Empty\n");
-        exit(0);
+        perror("Queue is Empty\n");
     }
 
     /* Return the element which is at the front*/
@@ -60,7 +77,7 @@ void Enqueue(Queue *Q, Job job)
     /* If the Queue is full, we cannot push an element into it as there is no space for it.*/
     if(Q->size == Q->capacity)
     {
-        printf("Queue is Full\n");
+        perror("Queue is Full\n");
     }
     else
     {

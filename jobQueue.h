@@ -3,7 +3,9 @@ typedef struct {
     int arrivalTime;
     int burstTime;
     int timeInQueue;
-    int currentQueue;
+    int queueChange;
+    int turnaround;
+    int finishTime;
 } Job;
 
 typedef struct {
@@ -13,6 +15,13 @@ typedef struct {
     int rear;
     Job *jobs;
 } Queue;
+
+typedef struct {
+    double avg_job_length;
+    double avg_turnaround;
+} Sim;
+
+Job* createJob(int jnumber, int arrivalTime, int burstTime);
 
 Queue* createQueue(int maxJobs);
 
