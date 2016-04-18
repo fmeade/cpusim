@@ -33,6 +33,7 @@ struct option_info options[] =
     ,{ "job-frequency"       , 'r', "1", "the expected number of new jobs per ms. " } 
     ,{ "seed"                , 's', NULL, "The random-number seed for the simulation. " } 
     ,{ "verbose"             , 'v', "true", "enable verbose output or not. " } 
+    ,{"numQueues"            , 'q', "3", "Number of queues for processing to use. "}
   };
 
 #define NUM_OPTIONS SIZEOF_ARRAY(options)
@@ -50,7 +51,7 @@ int main(int argc, char** argv) {
 	const int JOB_FREQUENCY = atoi(settings[4]);
     bool VERBOSE;
 
-    if (strcmp(settings[6], "true") == 0)
+    if (settings[6][0] == 't')
         VERBOSE = true;
     else
         VERBOSE = false;

@@ -1,7 +1,7 @@
 all: cpusim
 
 cpusim: cpusim.c ibarland-utils.o command-line-options.o
-	gcc -Wall cpusim.c -o cpusim ibarland-utils.o command-line-options.o -lm
+	gcc -Wall cpusim.c -o cpuSim ibarland-utils.o command-line-options.o -lm
 
 command-line-options.o: command-line-options.c command-line-options.h
 	gcc -Wall -c command-line-options.c
@@ -10,7 +10,7 @@ ibarland-utils.o: ibarland-utils.c ibarland-utils.h
 	gcc -Wall -c ibarland-utils.c
 
 clean:
-	rm -f cpusim  *.o
+	rm -f cpuSim  *.o
 
 run: cpusim
-	./cpusim
+	./cpuSim
