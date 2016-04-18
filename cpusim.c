@@ -7,6 +7,7 @@
 
 #include "command-line-options.h"
 #include "ibarland-utils.h"
+#include "queue.h"
 
 /**
  * cpusim.c
@@ -17,7 +18,7 @@
  *
  * Description: 
  * 
- * Help: 
+ * Help: Queues - http://www.thelearningpoint.net/computer-science/data-structures-queues--with-c-program-source-code
  * 
  */
 
@@ -33,10 +34,12 @@ struct option_info options[] =
     ,{ "job-frequency"       , 'r', "1", "the expected number of new jobs per ms. " } 
     ,{ "seed"                , 's', NULL, "The random-number seed for the simulation. " } 
     ,{ "verbose"             , 'v', "true", "enable verbose output or not. " } 
-    ,{"numQueues"            , 'q', "3", "Number of queues for processing to use. "}
+    ,{ "numQueues"           , 'q', "3", "Number of queues for processing to use. "}
   };
 
 #define NUM_OPTIONS SIZEOF_ARRAY(options)
+
+
 
 int main(int argc, char** argv) {
 
@@ -49,14 +52,10 @@ int main(int argc, char** argv) {
 	const int INTERMEDIATE_QUANTUM = atoi(settings[2]);
 	const int JOB_LENGTH = atoi(settings[3]);
 	const int JOB_FREQUENCY = atoi(settings[4]);
-    bool VERBOSE;
+    const int NUMQUEUES = atoi(settings[7]);
 
-    if (settings[6][0] == 't')
-        VERBOSE = true;
-    else
-        VERBOSE = false;
 
-	int SEED;
+    int SEED;
 
     // generates a random number for the seed if not provided
     srandom(time(0));
@@ -66,8 +65,21 @@ int main(int argc, char** argv) {
     else
         SEED = atoi(settings[5]);
 
+
+    bool VERBOSE;
+    if (settings[6][0] == 't')
+        VERBOSE = true;
+    else
+        VERBOSE = false;
+
+
     int avg_job_length = 0;
     int avg_job_turnaround = 0;
+
+    Job jobs[NUMJOBS];
+
+    Queue queues[NUMQUEUES];
+
 
 
 
