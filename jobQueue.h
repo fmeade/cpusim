@@ -25,9 +25,9 @@ Job* createJob(int jnumber, int arrivalTime, int burstTime);
 
 Queue* createQueue(int maxJobs);
 
-void Dequeue(Queue *Q);
+void dequeue(Queue *Q);
 
-Job front(Queue *Q);
+Job* front(Queue *Q);
 
-void Enqueue(Queue *Q, Job job);
+void enqueue(Queue *Q, Job job);
 

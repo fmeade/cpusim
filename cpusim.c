@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <time.h>
 #include <stdbool.h>
+#include <math.h>
 
 #include "command-line-options.h"
 #include "ibarland-utils.h"
@@ -98,13 +99,37 @@ int main(int argc, char** argv) {
 
 
 
+
     /* Simulated stuff */
+
+    /* loops through a calculated number of milliseconds */
+    for (int i = 0; i < (ceil(NUMJOBS/JOB_FREQUENCY)*JOB_LENGTH); i++)
+    {
+        for (int i = 0; i < SIZEOF_ARRAY(jobs); i++)
+        {
+            if(jobs[i]->arrivalTime == i) {
+                enqueue(queues[0], *jobs[i]);
+            }
+        }
+
+        if (queues[0]->size != 0) {
+            Job* frontJob = front(queues[0]);
+        }
+    }
+
+
 
 
     long sim_end_time = time_usec() / 1000; // end time in ms
 
-    sim->avg_job_length = sim->avg_job_length / NUMJOBS;
+    /* adds up all jobs turnaround */
+    for (int i = 0; i < SIZEOF_ARRAY(jobs); i++)
+    {
+        sim->avg_turnaround = sim->avg_turnaround + jobs[i]->turnaround;
+    }
 
+    sim->avg_job_length = sim->avg_job_length / NUMJOBS;
+    sim->avg_turnaround = sim->avg_turnaround / NUMJOBS;
 
 
     /* Printing Output */

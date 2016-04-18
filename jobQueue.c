@@ -38,7 +38,7 @@ Queue* createQueue(int maxJobs) {
     return Q; 
 }
 
-void Dequeue(Queue *Q)
+void dequeue(Queue *Q)
 {
     /* If Queue size is zero then it is empty. So we cannot pop */
     if(Q->size == 0)
@@ -61,7 +61,7 @@ void Dequeue(Queue *Q)
     return;
 }
 
-Job front(Queue *Q)
+Job* front(Queue *Q)
 {
     if(Q->size == 0)
     {
@@ -69,10 +69,10 @@ Job front(Queue *Q)
     }
 
     /* Return the element which is at the front*/
-    return Q->jobs[Q->front];
+    return &Q->jobs[Q->front];
 }
 
-void Enqueue(Queue *Q, Job job)
+void enqueue(Queue *Q, Job job)
 {
     /* If the Queue is full, we cannot push an element into it as there is no space for it.*/
     if(Q->size == Q->capacity)
