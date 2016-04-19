@@ -5,6 +5,7 @@ typedef struct {
     int timeInQueue;
     int queueChange;
     int turnaround;
+    int runTime;
     int finishTime;
 } Job;
 
@@ -13,7 +14,7 @@ typedef struct {
     int size;
     int front;
     int rear;
-    Job *jobs;
+    Job* jobs;
 } Queue;
 
 typedef struct {
@@ -29,5 +30,5 @@ void dequeue(Queue *Q);
 
 Job* front(Queue *Q);
 
-void enqueue(Queue *Q, Job job);
+void enqueue(Queue *Q, Job *job);
 

@@ -14,8 +14,9 @@ Job* createJob(int jnumber, int arrivalTime, int burstTime) {
     job->arrivalTime = arrivalTime;
     job->burstTime = burstTime;
     job->timeInQueue = 0;
-    job->queueChange = 0;
+    job->queueChange = -1;
     job->turnaround = 0;
+    job->runTime = 0;
     job->finishTime = 0;
 
     return job;  
@@ -28,7 +29,7 @@ Queue* createQueue(int maxJobs) {
     Q = (Queue *)malloc(sizeof(Queue));
 
     /* Initialize its properties */
-    Q->jobs = (Job *)malloc(sizeof(int)*maxJobs);
+    Q->jobs = (Job *)malloc(sizeof(Job)*maxJobs);
     Q->size = 0;
     Q->capacity = maxJobs;
     Q->front = 0;
@@ -72,7 +73,7 @@ Job* front(Queue *Q)
     return &Q->jobs[Q->front];
 }
 
-void enqueue(Queue *Q, Job job)
+void enqueue(Queue *Q, Job* job)
 {
     /* If the Queue is full, we cannot push an element into it as there is no space for it.*/
     if(Q->size == Q->capacity)
@@ -88,9 +89,13 @@ void enqueue(Queue *Q, Job job)
         {
             Q->rear = 0;
         }
+
         /* Insert the element in its rear side */ 
-        Q->jobs[Q->rear] = job;
+        Q->jobs[Q->rear] = *job;
     }
 
     return;
 }
+
+
+
